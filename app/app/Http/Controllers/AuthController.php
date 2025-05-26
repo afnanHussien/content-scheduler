@@ -38,21 +38,6 @@ class AuthController extends Controller
         }
 
         return response()->json(['message' => 'Invalid credentials'], 401);
-    
-        // $user = User::where("email", $params["email"])->first();
-        // if (!$user || !Hash::check($params["password"], $user->password)) {
-        //     return response()->json([
-        //         "status"=> "error",
-        //         "message"=> "Invalid credentials"
-        //     ], 401);
-        // }
-        // $token = $user->createToken($request->userAgent())->plainTextToken;
-
-        // return response()->json([
-        //     "status"=> "success",
-        //     "user" => $user,
-        //     "token" => $token
-        // ]);  
     }
     public function logout(Request $request)
     {
@@ -61,14 +46,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return response()->json(['message' => 'Logged out successfully'], 200);
     }
-    // public function logout(Request $request)
-    // {   
-    //     $request->user()->currentAccessToken()->delete();
-
-    //     return response()->json([
-    //         "status"=> "success",
-    //         "message" => "Logged out successfully"
-    //     ]);
-    // }
-
 }

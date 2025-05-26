@@ -25,7 +25,7 @@ class ContentLengthPerPlatform implements ValidationRule
         $platforms = Platform::whereIn('id', $this->platformIds)->get();
         foreach ($platforms as $platform) {
             $limit = match ($platform->type) {
-                'twitter' => 2000,
+                'twitter' => 280,
                 'linkedin' => 3000,
                 'instagram' => 2200,
                 default => 3500,

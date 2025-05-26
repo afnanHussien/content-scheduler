@@ -10,40 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    // public function validateContentLength(string $content, array $platformIds): void
-    // {
-    //     $platforms = Platform::whereIn('id', $platformIds)->get();
-
-    //     foreach ($platforms as $platform) {
-    //         $limit = match ($platform->type) {
-    //             'twitter' => 280,
-    //             'linkedin' => 3000,
-    //             'instagram' => 2200,
-    //             default => 3500,
-    //         };
-
-    //         if (mb_strlen($content) > $limit) {
-    //             abort(422, "Content exceeds character limit for {$platform->name} ({$limit} characters max).");
-    //         }
-    //     }
-    // }
-
-    // public function validateDailyPostLimit(User $user, ?string $scheduledTime): void
-    // {
-    //     if (!$scheduledTime) return;
-
-    //     $date = Carbon::parse($scheduledTime)->toDateString();
-
-    //     $count = $user->posts()
-    //         ->where('status', 'scheduled')
-    //         ->whereDate('scheduled_time', $date)
-    //         ->count();
-
-    //     if ($count >= 10) {
-    //         abort(422, "You’ve reached the 10 scheduled posts limit for $date.");
-    //     }
-    // }
-
     public function getUserPosts(User $user, array $filters)
     {
         $query = $user->posts()->with('platforms');
