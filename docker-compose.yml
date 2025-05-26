@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: content_scheduler_app
+    working_dir: /var/www
+    volumes:
+      - ./app:/var/www
+    ports:
+      - "8000:80"
+    depends_on:
+      - mysql
+      - node
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:8.0
+    container_name: content_scheduler_mysql
+    environment:
+      MYSQL_DATABASE: content_scheduler
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - laravel
+
+  node:
+    image: node:18
+    container_name: content_scheduler_builder
+    working_dir: /var/www
+    volumes:
+      - ./app:/var/www
+    command: sh -c "npm install && npm run build"
+    # command: sh -c "npm install && npm run dev"
+    # command: sh -c "npm install && npm run watch"??
+
+volumes:
+  dbdata:
+
+networks:
+  laravel:
+    driver: bridge
+
